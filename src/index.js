@@ -193,8 +193,6 @@ app.use(express.json());
 app.use(cookieParser());
 
 // CORS configuration
-// app.options('*', cors());
-
 const allowedOrigins = [
     'http://localhost:8080',
     'http://localhost:8081',
