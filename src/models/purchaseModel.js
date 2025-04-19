@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const purchaseSchema = new mongoose.Schema({
   course: {
@@ -30,4 +30,6 @@ const purchaseSchema = new mongoose.Schema({
 // Compound index to prevent duplicate purchases
 purchaseSchema.index({ course: 1, user: 1 }, { unique: true });
 
-module.exports = mongoose.model('Purchase', purchaseSchema);
+const Purchase = mongoose.model('Purchase', purchaseSchema);
+
+export default Purchase;

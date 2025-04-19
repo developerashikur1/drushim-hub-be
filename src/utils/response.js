@@ -13,4 +13,4 @@ const successResponse = (res, message, data=null) => {
       error, // Include error if provided
     });
   };
-  module.exports = { successResponse, errorResponse };
+export { successResponse, errorResponse };

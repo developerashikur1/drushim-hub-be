@@ -1,7 +1,27 @@
-const express = require('express');
-const router = express.Router();
-const { protect, restrictTo } = require('../middleware/authMiddleware');
-const {
+// const express = require('express');
+// const router = express.Router();
+// const { protect, restrictTo } = require('../middleware/authMiddleware');
+// const {
+//   createCourse,
+//   getAllCourses,
+//   getRecruiterCourses,
+//   getCourseBySlug,
+//   updateCourse,
+//   deleteCourse,
+//   getAllMyCourses,
+// } = require('../controllers/courseController');
+
+// const {
+//   createReview,
+//   getCourseReviews,
+//   updateReview,
+//   deleteReview,
+// } = require('../controllers/reviewController');
+
+
+import express from 'express';
+import { protect, restrictTo } from '../middleware/authMiddleware.js';
+import {
   createCourse,
   getAllCourses,
   getRecruiterCourses,
@@ -9,14 +29,19 @@ const {
   updateCourse,
   deleteCourse,
   getAllMyCourses,
-} = require('../controllers/courseController');
+} from '../controllers/courseController.js';
 
-const {
+import {
   createReview,
   getCourseReviews,
   updateReview,
   deleteReview,
-} = require('../controllers/reviewController');
+} from '../controllers/reviewController.js';
+
+const router = express.Router();
+
+
+
 
 // Public routes
 router.get('/', getAllCourses);
@@ -40,4 +65,4 @@ router.get(
 router.put('/:id', protect, restrictTo('recruiter'), updateCourse);
 router.delete('/:id', protect, restrictTo('recruiter'), deleteCourse);
 
-module.exports = router;
+export default router;

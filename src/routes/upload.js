@@ -1,8 +1,15 @@
-const express = require('express');
+// const express = require('express');
+// const router = express.Router();
+// const uploadController = require('../controllers/uploadController.js');
+// const multer = require('multer');
+// const path = require('path');
+
+import express from 'express';
+import * as uploadController from '../controllers/uploadController.js';
+import multer from 'multer';
+import path from 'path';
+
 const router = express.Router();
-const uploadController = require('../controllers/uploadController.js');
-const multer = require('multer');
-const path = require('path');
 
 // Configure multer for file upload
 const storage = multer.diskStorage({
@@ -50,4 +57,4 @@ const upload = multer({
 
 router.post('/', upload.single('resume'), uploadController.uploadFile);
 
-module.exports = router;
+export default router;

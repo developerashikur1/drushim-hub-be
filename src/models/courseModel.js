@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const slugify = require('slugify');
+
+import mongoose from 'mongoose';
+import slugify from 'slugify';
 
 const courseSchema = new mongoose.Schema({
   title: {
@@ -122,4 +123,6 @@ courseSchema.pre('findOneAndUpdate', async function(next) {
   next();
 });
 
-module.exports = mongoose.model('Course', courseSchema);
+const Course = mongoose.model('Course', courseSchema);
+
+export default Course;

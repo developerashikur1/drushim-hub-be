@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const slugify = require('slugify');
+
+import mongoose from 'mongoose';
+import slugify from 'slugify';
 
 const blogSchema = new mongoose.Schema({
   title: {
@@ -120,4 +121,5 @@ blogSchema.pre('findOneAndUpdate', async function(next) {
   next();
 });
 
-module.exports = mongoose.model('Blog', blogSchema);
+const Blog = mongoose.model('Blog', blogSchema);
+export default Blog;

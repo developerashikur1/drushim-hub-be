@@ -1,6 +1,6 @@
-const express = require('express');
-const { protect, hasRole } = require('../middleware/auth.js');
-const {
+import express from 'express';
+import { protect, hasRole } from '../middleware/auth.js';
+import {
   createJob,
   updateJob,
   deleteJob,
@@ -8,9 +8,12 @@ const {
   getJobById,
   getAllMyJobs,
   createJobPost,
-} = require('../controllers/jobController.js');
+} from '../controllers/jobController.js';
 
 const router = express.Router();
+
+
+
 router.get('/',getAllJobs);
 // Create a new job
 router.post('/', protect, hasRole('recruiter'), createJob);
@@ -31,4 +34,4 @@ router.get('/my-jobs',protect, hasRole('recruiter'),getAllMyJobs);
 // Get a single job by ID
 router.get('/:id', getJobById);
 
-module.exports = router;
+export default router;

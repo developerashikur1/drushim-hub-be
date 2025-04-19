@@ -1,7 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const { protect } = require('../middleware/authMiddleware');
-const {
+// const express = require('express');
+// const router = express.Router();
+// const { protect } = require('../middleware/authMiddleware');
+// const {
+//   createBlog,
+//   getAllBlogs,
+//   getUserBlogs,
+//   getBlogBySlug,
+//   updateBlog,
+//   deleteBlog,
+//   toggleLike
+// } = require('../controllers/blogController');
+
+import express from 'express';
+import { protect } from '../middleware/authMiddleware.js';
+import {
   createBlog,
   getAllBlogs,
   getUserBlogs,
@@ -9,7 +21,10 @@ const {
   updateBlog,
   deleteBlog,
   toggleLike
-} = require('../controllers/blogController');
+} from '../controllers/blogController.js';
+
+const router = express.Router();
+
 
 // Public routes
 router.get('/', getAllBlogs);
@@ -25,4 +40,4 @@ router.put('/:slug', updateBlog);
 router.delete('/:slug', deleteBlog);
 router.post('/:id/like', toggleLike);
 
-module.exports = router;
+export default router;
