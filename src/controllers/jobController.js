@@ -36,7 +36,6 @@
 //     }
 // };
 
-
 // // Update a job
 // exports.updateJob = async (req, res) => {
 //   const { id } = req.params;
@@ -65,7 +64,6 @@
 //   }
 // };
 
-
 // // Get a single job by ID
 // exports.getJobById = async (req, res) => {
 //   const { id } = req.params;
@@ -80,21 +78,16 @@
 //   }
 // };
 
-
-
 // exports.getAllJobs = async (req, res) => {
 
 //   try {
 
-
 //     const { page = 1, limit = 10, q, company, location, type, salary, benefits, skills, remote, userId } = req.query;
 //     const query = {};
-
 
 //     if (q) {
 //       query.title = { $regex: q, $options: 'i' };
 //     }
-
 
 //     if (company) {
 //       query.company = { $regex: company, $options: 'i' };
@@ -141,11 +134,9 @@
 //     const { page = 1, limit = 10, q, company, location, type, salary, benefits, skills, remote } = req.query;
 //     const query = {};
 
-
 //     if (q) {
 //       query.title = { $regex: q, $options: 'i' };
 //     }
-
 
 //     if (company) {
 //       query.company = { $regex: company, $options: 'i' };
@@ -186,14 +177,9 @@
 
 // }
 
-
-
-
 import Job from '../models/Job.js';
-import { successResponse, errorResponse } from '../utils/response.js';
-import { generateText } from 'ai';
-import { openai } from '@ai-sdk/openai';
 import { generateJobPost } from '../utils/func.js';
+import { errorResponse, successResponse } from '../utils/response.js';
 
 // Create a new job
 export const createJob = async (req, res) => {
@@ -269,17 +255,18 @@ export const getAllJobs = async (req, res) => {
   try {
     const {
       page = 1,
-      limit = 10,
+      limit = 100,
       q,
       company,
       location,
       type,
       salary,
       remote,
-      userId
+      userId,
     } = req.query;
 
     const query = {};
+    const sort = { createdAt: -1 };
 
     if (q) query.title = { $regex: q, $options: 'i' };
     if (company) query.company = { $regex: company, $options: 'i' };
@@ -290,6 +277,7 @@ export const getAllJobs = async (req, res) => {
     if (userId) query.userId = userId;
 
     const jobs = await Job.find(query)
+      .sort(sort)
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .lean();
@@ -319,7 +307,7 @@ export const getAllMyJobs = async (req, res) => {
       salary,
       benefits,
       skills,
-      remote
+      remote,
     } = req.query;
 
     const query = {
