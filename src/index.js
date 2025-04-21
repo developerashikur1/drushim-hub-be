@@ -165,6 +165,7 @@ import { dirname, join } from 'path';
 // Routes
 import authRouter from './routes/auth.js';
 import jobsRouter from './routes/jobs.js';
+import scheduleRouter from './routes/schedule.js';
 import uploadRouter from './routes/upload.js';
 import jobsApplicationsRouter from './routes/apply.js';
 import paymentRouter from './routes/payment.js';
@@ -262,6 +263,7 @@ app.get('/api', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/jobs', jobsRouter);
+app.use('/api/schedule', scheduleRouter);
 app.use('/api/jobs/applications', jobsApplicationsRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/payments', paymentRouter);
