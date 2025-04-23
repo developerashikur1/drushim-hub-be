@@ -7,6 +7,8 @@ export const createSchedule = async (req, res) => {
   try {
     const { platform, date, content, postId, groupId } = req.body;
 
+
+
     // Validate that job exists
     const job = await Job.findById(postId);
     if (!job) return errorResponse(res, 'Associated job not found');

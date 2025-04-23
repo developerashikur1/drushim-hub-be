@@ -28,6 +28,7 @@
 import { successResponse, errorResponse } from '../utils/response.js';
 
 export const uploadFile = async (req, res) => {
+    console.log(req, req.file, req.body)
   try {
     if (!req.file) {
       return errorResponse(res, 'No file uploaded', null, 400);

@@ -146,6 +146,8 @@ const applyForJob = async (req, res) => {
   try {
     const { jobId, fullName, email, resume, phone, additionalNotes } = req.body;
 
+    console.log({ jobId, fullName, email, resume, phone, additionalNotes });
+
     if (!jobId || !mongoose.Types.ObjectId.isValid(jobId)) {
       return errorResponse(res, 'Invalid or missing jobId');
     }

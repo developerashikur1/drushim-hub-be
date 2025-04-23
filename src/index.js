@@ -152,25 +152,25 @@
 
 
 
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
 import fs from 'fs/promises';
-import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
 import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 // Routes
+import jobsApplicationsRouter from './routes/apply.js';
 import authRouter from './routes/auth.js';
+import blogRoutes from './routes/blogRoutes.js';
+import courseRoutes from './routes/courseRoutes.js';
 import jobsRouter from './routes/jobs.js';
+import paymentRouter from './routes/payment.js';
 import scheduleRouter from './routes/schedule.js';
 import uploadRouter from './routes/upload.js';
-import jobsApplicationsRouter from './routes/apply.js';
-import paymentRouter from './routes/payment.js';
-import courseRoutes from './routes/courseRoutes.js';
-import blogRoutes from './routes/blogRoutes.js';
 
 // Setup __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -182,16 +182,17 @@ const app = express();
 // Load environment variables
 dotenv.config();
 
+// Middleware
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(cookieParser());
+
 // Logging middleware
 app.use(morgan('dev'));
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
   next();
 });
-
-// Middleware
-app.use(express.json());
-app.use(cookieParser());
 
 // CORS configuration
 const allowedOrigins = [
