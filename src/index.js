@@ -199,6 +199,7 @@ const allowedOrigins = [
     'http://localhost:8080',
     'http://localhost:8081',
     'https://drushimavodot.vercel.app',
+    'https://drushim-hub.netlify.app/signup',
   ];
   
   app.use(
