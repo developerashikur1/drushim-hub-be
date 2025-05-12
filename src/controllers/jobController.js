@@ -239,6 +239,7 @@ export const deleteJob = async (req, res) => {
 // Get a single job by ID
 export const getJobById = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   try {
     const job = await Job.findById(id);
     if (!job) {

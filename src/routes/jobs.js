@@ -13,6 +13,7 @@ import {
 const router = express.Router();
 
 
+router.get('/:id', getJobById);
 
 router.get('/',getAllJobs);
 // Create a new job
@@ -36,6 +37,5 @@ router.get('/my-jobs', getAllMyJobs);
 
 
 // Get a single job by ID
-router.get('/:id', getJobById);
 
 export default router;
