@@ -18,7 +18,7 @@ router.get('/:id', getJobById);
 router.get('/', getAllJobs);
 // Create a new job
 // router.post('/', protect, hasRole('recruiter'), createJob);
-router.post('/',  createJob);
+router.post('/', protect, createJob);
 
 // router.post('/generate-job-post', protect, hasRole('recruiter'), createJobPost);
 router.post('/generate-job-post', createJobPost);

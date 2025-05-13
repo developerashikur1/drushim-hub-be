@@ -184,6 +184,7 @@ import { errorResponse, successResponse } from '../utils/response.js';
 // Create a new job
 export const createJob = async (req, res) => {
   try {
+    console.log("my job creation, ", req.user.id)
     const job = new Job({ ...req.body, userId: req.user.id });
     await job.save();
     return successResponse(res, 'Job created successfully', job);
