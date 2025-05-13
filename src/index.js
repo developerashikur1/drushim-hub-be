@@ -196,10 +196,10 @@ app.use((req, res, next) => {
 
 // CORS configuration
 const allowedOrigins = [
+    'https://drushim-hub.netlify.app',
     'http://localhost:8080',
     'http://localhost:8081',
     'https://drushimavodot.vercel.app',
-    'https://drushim-hub.netlify.app',
   ];
   
   app.use(
