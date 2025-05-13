@@ -187,14 +187,20 @@ const createToken = (user) => {
 
 // Helper function for consistent cookie settings
 const getCookieOptions = () => {
-  const isProduction = process.env.NODE_ENV === 'production';
+//   const isProduction = process.env.NODE_ENV === 'production';
   return {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    secure: true,
+    sameSite: 'none',
     path: '/',
     maxAge: 24 * 60 * 60 * 1000,
-    domain: isProduction ? 'https://drushim-hub.netlify.app' : 'localhost',
+    // domain: isProduction ? 'https://drushim-hub.netlify.app' : 'localhost',
+    // httpOnly: true,
+    // secure: isProduction,
+    // sameSite: isProduction ? 'none' : 'lax',
+    // path: '/',
+    // maxAge: 24 * 60 * 60 * 1000,
+    // domain: isProduction ? 'https://drushim-hub.netlify.app' : 'localhost',
   };
 };
 
