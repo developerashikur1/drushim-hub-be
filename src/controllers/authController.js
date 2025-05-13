@@ -194,7 +194,7 @@ const getCookieOptions = () => {
     sameSite: isProduction ? 'none' : 'lax',
     path: '/',
     maxAge: 24 * 60 * 60 * 1000,
-    domain: isProduction ? 'your-production-domain.com' : 'localhost',
+    domain: isProduction ? 'https://drushim-hub.netlify.app' : 'localhost',
   };
 };
 
