@@ -199,32 +199,56 @@ const allowedOrigins = [
     'https://drushim-hub.netlify.app',
     'http://localhost:8080',
     'http://localhost:8081',
-    'https://drushimavodot.vercel.app',
   ];
   
-  app.use(
-    cors({
-      origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-        } else {
-          console.warn(`❌ CORS blocked: ${origin}`);
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
-      credentials: true,
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-      allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-        'X-Requested-With',
-        'Accept',
-        'Origin',
-      ],
-      exposedHeaders: ['Set-Cookie'],
-      optionsSuccessStatus: 204,
-    })
-  );
+//   app.use(
+//     cors({
+//       origin: function (origin, callback) {
+//         if (!origin || allowedOrigins.includes(origin)) {
+//           callback(null, true);
+//         } else {
+//           console.warn(`❌ CORS blocked: ${origin}`);
+//           callback(new Error('Not allowed by CORS'));
+//         }
+//       },
+//       credentials: true,
+//       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//       allowedHeaders: [
+//         'Content-Type',
+//         'Authorization',
+//         'X-Requested-With',
+//         'Accept',
+//         'Origin',
+//       ],
+//       exposedHeaders: ['Set-Cookie'],
+//       optionsSuccessStatus: 204,
+//     })
+//   );
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+  next();
+});
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`❌ CORS blocked: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
+  exposedHeaders: ['Set-Cookie'],
+}));
+
+
 
 // Connect to MongoDB
 mongoose
