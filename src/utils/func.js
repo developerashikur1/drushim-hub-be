@@ -13,7 +13,7 @@ export const isValidArray = (arr) => {
 // Helper function to generate job post using AI
 export async function generateJobPost(description) {
   const prompt = `
-        Based on the following job description, create a detailed job posting object with the following structure, (note: If given description is more than 85% of text written in any specific language then all generated texts will be also that given language. It's mandatory):
+        Based on the following job description, create a detailed job posting object with the following structure, Note: If more than 85% of the job description text is written in a specific language, all generated fields in the output must also be written entirely in that same language. This rule is mandatory and must be strictly followed:
         {
             "title": "Job title",
             "company": "Company name (use a realistic company name)",
