@@ -271,6 +271,20 @@ process.on('SIGTERM', () => {
   });
 });
 
+// Graceful shutdown
+process.on('SIGTERM', async () => {
+  console.log('SIGTERM signal received. Closing server...');
+  try {
+    server.close();
+    await mongoose.connection.close();
+    console.log('MongoDB connection closed');
+    process.exit(0);
+  } catch (err) {
+    console.error('Error during graceful shutdown:', err);
+    process.exit(1);
+  }
+});
+
 // Root redirect
 app.get('/', (req, res) => {
   res.redirect('/api');
