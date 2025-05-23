@@ -265,8 +265,13 @@ export const getAllJobs = async (req, res) => {
       type,
       salary,
       remote,
-      userId,
+      userId: userIds,
     } = req.query;
+
+    // const userId = req?.user?.id || userIds || "68065e7e5495908f9043ac7a"
+    const userId = req?.user?.id || userIds;
+
+
 
     const query = {};
     const sort = { createdAt: -1 };

@@ -172,9 +172,9 @@
 
 
 
-import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import { successResponse, errorResponse } from '../utils/response.js';
+import User from '../models/User.js';
+import { errorResponse, successResponse } from '../utils/response.js';
 
 // Helper function to create JWT token
 const createToken = (user) => {
@@ -355,8 +355,7 @@ const getCurrentUser = async (req, res) => {
 };
 
 export {
-  register,
-  login,
-  logout,
-  getCurrentUser
+    getCurrentUser, login,
+    logout, register
 };
+

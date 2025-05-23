@@ -74,6 +74,25 @@ export const protect = async (req, res, next) => {
   }
 };
 
+export const protectOrAccess = async (req, res, next) => {
+  try {
+    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+    if(!token){
+        req.user = null;
+        next();
+        return;
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select('-password');
+
+    req.user = user ? user : null;
+    next();
+  } catch (error) {
+    return errorResponse(res, 'Not authorized - Invalid token', error, 401);
+  }
+};
+
 export const admin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next();

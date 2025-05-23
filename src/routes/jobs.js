@@ -1,5 +1,5 @@
 import express from 'express';
-import { protect, hasRole } from '../middleware/auth.js';
+import { protect, hasRole, protectOrAccess } from '../middleware/auth.js';
 import {
   createJob,
   updateJob,
@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.get('/:id', getJobById);
 
-router.get('/', getAllJobs);
+router.get('/', protectOrAccess, getAllJobs);
 // Create a new job
 // router.post('/', protect, hasRole('recruiter'), createJob);
 router.post('/', protect, createJob);
