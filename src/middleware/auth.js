@@ -60,11 +60,11 @@ export const protect = async (req, res, next) => {
     if (!token) {
         return errorResponse(res, 'Not authorized - No token', null, 401);
     }
-    console.log("🐦‍🔥🐦‍🔥🐦‍🔥", token, );
+    
     
     const d = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(d.id).select('-password');
-    console.log(user, "token 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨");
+    
 
     // console.log(user, "user");
     if (!user) {
@@ -79,13 +79,15 @@ export const protect = async (req, res, next) => {
 };
 
 export const protectOrAccess = async (req, res, next) => {
-  try {
-    const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
-    if(!token){
-        req.user = null;
-        next();
-        return;
-    }
+    try {
+      const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
+      
+      if(!token || token === "undefined"){
+          
+          req.user = null;
+          next();
+          return;
+      }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select('-password');
