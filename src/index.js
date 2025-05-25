@@ -185,13 +185,12 @@ dotenv.config();
 // Middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(cookieParser());
 
 // Logging middleware
 app.use(morgan('dev'));
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
-  next();
+    console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+    next();
 });
 
 // CORS configuration
@@ -199,14 +198,14 @@ const allowedOrigins = [
     'https://drushim-hub.netlify.app',
     'http://localhost:8080',
     'http://localhost:8081',
-  ];
+];
   
 //   app.use(
-//     cors({
+    //     cors({
 //       origin: function (origin, callback) {
-//         if (!origin || allowedOrigins.includes(origin)) {
-//           callback(null, true);
-//         } else {
+    //         if (!origin || allowedOrigins.includes(origin)) {
+        //           callback(null, true);
+        //         } else {
 //           console.warn(`❌ CORS blocked: ${origin}`);
 //           callback(new Error('Not allowed by CORS'));
 //         }
@@ -224,14 +223,15 @@ const allowedOrigins = [
 //       optionsSuccessStatus: 204,
 //     })
 //   );
+app.use(cookieParser());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header('Access-Control-Allow-Origin', req.headers.origin);
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+//   next();
+// });
 
 app.use(cors({
   origin: function (origin, callback) {
