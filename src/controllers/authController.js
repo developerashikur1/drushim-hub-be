@@ -343,7 +343,7 @@ const logout = (req, res) => {
 // Get current user
 const getCurrentUser = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password').populate('subscription');
     if (!user) {
       return errorResponse(res, 'User not found');
     }

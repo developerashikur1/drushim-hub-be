@@ -169,6 +169,7 @@ import blogRoutes from './routes/blogRoutes.js';
 import courseRoutes from './routes/courseRoutes.js';
 import jobsRouter from './routes/jobs.js';
 import paymentRouter from './routes/payment.js';
+import pricingTierRoutes from './routes/pricingTierRoutes.js';
 import scheduleRouter from './routes/schedule.js';
 import uploadRouter from './routes/upload.js';
 
@@ -308,6 +309,7 @@ app.use('/api/jobs/applications', jobsApplicationsRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/payments', paymentRouter);
 app.use('/api/courses', courseRoutes);
+app.use('/api/pricing-tiers', pricingTierRoutes);
 
 // Create uploads directory if it doesn't exist
 const uploadsDir = join(__dirname, '../uploads');

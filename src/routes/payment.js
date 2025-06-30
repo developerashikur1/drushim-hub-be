@@ -15,11 +15,15 @@
 
 import express from 'express';
 import * as paymentController from '../controllers/paymentController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // Route to get payment types
 router.get('/types', paymentController.getPaymentTypes);
+
+// Route to create a payment
+router.post('/make-payment', protect, paymentController.makePayment);
 
 // Route to create a payment
 router.post('/create', paymentController.createPayment);

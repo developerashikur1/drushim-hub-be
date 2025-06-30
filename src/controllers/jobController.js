@@ -178,6 +178,7 @@
 // }
 
 import Job from '../models/Job.js';
+import User from '../models/User.js';
 import { generateJobPost } from '../utils/func.js';
 import { errorResponse, successResponse } from '../utils/response.js';
 
@@ -188,6 +189,26 @@ export const createJob = async (req, res) => {
     console.log("my job creation, 🚨🚨🚨🚨 ", req.user.id, )
     const job = new Job({ ...req.body, userId: req.user.id });
     await job.save();
+
+    // if(!job) errorResponse(res, 'Failed to create job');
+
+    console.log("📞📞📞📞📞📞📞 user", req.user);
+    const {_id: userId, usedCreditCount} = req.user;
+
+    const updateData = {
+        usedCreditCount: usedCreditCount + 1,
+    }
+
+    if (!job) throw new Error("Failed to create job");
+
+    const result = await User.findByIdAndUpdate(
+        userId,
+        { $set: updateData },
+        { new: true, runValidators: true }
+    );
+
+    console.log({result});
+
     return successResponse(res, 'Job created successfully', job);
   } catch (error) {
     return errorResponse(res, 'Failed to create job', error);
@@ -203,6 +224,11 @@ export const createJobPost = async (req, res) => {
     }
 
     const jobPost = await generateJobPost(description);
+
+    if(!jobPost) errorResponse(res, 'Job Creation Failed');
+
+
+
     return successResponse(res, 'Job post created successfully', jobPost);
   } catch (error) {
     console.error('Error in createJobPost:', error);
@@ -271,7 +297,6 @@ export const getAllJobs = async (req, res) => {
     // const userId = req?.user?.id || userIds || "68065e7e5495908f9043ac7a"
     const userId = req?.user?.id || userIds;
 
-console.log("hitted jobs ============= ✅", userId)
 
     const query = {};
     const sort = { createdAt: -1 };

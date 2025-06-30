@@ -46,14 +46,15 @@ export const protect = async (req, res, next) => {
   try {
     // Extract token from cookies or authorization header
     const token = req.cookies.token || req.headers.authorization?.split(' ')[1];
-
+    
     if (!token) {
-      return errorResponse(res, 'Not authorized - No token', null, 401);
+        return errorResponse(res, 'Not authorized - No token', null, 401);
     }
-
+    
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select('-password');
-
+    // console.log({user});
+    
     if (!user) {
       return errorResponse(res, 'User not found', null, 401);
     }

@@ -20,9 +20,10 @@ const scheduleSchema = new mongoose.Schema(
       required: true,
     },
     groupId: {
-      type: String,
-      required: true,
-    },
+  type: [String],
+  required: true,
+  validate: [array => array.length > 2, 'At least 3 groupId is required.']
+},
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Job',

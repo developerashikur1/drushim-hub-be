@@ -80,7 +80,7 @@ export const getAllSchedules = async (req, res) => {
       if (userId) query.userId = userId;
   
       const schedules = await Schedule.find(query)
-        .populate('postId', 'title')
+        .populate('postId')
         .populate('userId', 'name');
   
       return successResponse(res, 'Schedules retrieved successfully', schedules);
