@@ -1,6 +1,6 @@
 import Job from '../models/Job.js';
 import Schedule from '../models/schedule.js';
-import { successResponse, errorResponse } from '../utils/response.js';
+import { errorResponse, successResponse } from '../utils/response.js';
 
 // Create a new schedule
 export const createSchedule = async (req, res) => {
@@ -23,6 +23,28 @@ export const createSchedule = async (req, res) => {
     });
 
     await schedule.save();
+    return successResponse(res, 'Schedule created successfully', schedule);
+  } catch (error) {
+    return errorResponse(res, 'Failed to create schedule', error);
+  }
+};
+
+// Create a new schedule
+export const createMultipleSchedules = async (req, res) => {
+  try {
+    console.log("this is my body data", req.body);
+    // const { platform, date, content, postId, groupId } = req.body;
+
+
+
+    // Validate that job exists
+    // const job = await Job.findById(req.body.postId);
+    // if (!job) return errorResponse(res, 'Associated job not found');
+
+    // const schedule = new Schedule(req.body);
+    const schedule = await Schedule.create(req.body);
+
+    // await schedule.save();
     return successResponse(res, 'Schedule created successfully', schedule);
   } catch (error) {
     return errorResponse(res, 'Failed to create schedule', error);

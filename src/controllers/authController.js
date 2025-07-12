@@ -211,7 +211,7 @@ const getCookieOptions = () => {
     secure: true, // Required for HTTPS
     sameSite: 'none', // Required for cross-origin
     // path: '/',
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    maxAge: 720 * 60 * 60 * 1000, // 1 day
     // domain: '.onrender.com', // Update with your domain
   };
 };
