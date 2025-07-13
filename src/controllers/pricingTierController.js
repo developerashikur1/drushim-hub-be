@@ -4,7 +4,7 @@ import PricingTier from "../models/pricingTier.js";
 // GET all pricing tiers
 export const getPricingTiers = async (req, res) => {
   try {
-    const tiers = await PricingTier.find();
+    const tiers = await PricingTier.find().sort('price');
     res.json(tiers);
   } catch (err) {
     res.status(500).json({ error: err.message });

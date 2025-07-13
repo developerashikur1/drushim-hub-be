@@ -59,7 +59,7 @@ const prompt = `
             "location": "Job location",
             "type": "Job type (Full-time, Part-time, Contract, etc.)",
             "salary": "Salary range",
-            "description": "Detailed job description",
+            "description": "Detailed job description (above 180 words)",
             "requirements": "Job requirements",
             "benefits": ["Benefit 1", "Benefit 2", "Benefit 3"],
             "skills": ["Skill 1", "Skill 2", "Skill 3"],
@@ -119,7 +119,7 @@ const prompt = `
       model: openai('gpt-4o', openaiConfig), // Pass the config here
       prompt,
       temperature: 0.7,
-      maxTokens: 2000,
+      maxTokens: 5000,
     });
 
     // Clean and parse the response
