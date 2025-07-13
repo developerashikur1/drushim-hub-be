@@ -59,7 +59,7 @@ const prompt = `
             "location": "Job location",
             "type": "Job type (Full-time, Part-time, Contract, etc.)",
             "salary": "Salary range",
-            "description": "Detailed job description (above 180 words)",
+            "description": "Detailed job description (Must be increase above 180 words)",
             "requirements": "Job requirements",
             "benefits": ["Benefit 1", "Benefit 2", "Benefit 3"],
             "skills": ["Skill 1", "Skill 2", "Skill 3"],
