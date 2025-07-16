@@ -122,8 +122,9 @@
 
 
 import axios from 'axios';
-import { successResponse, errorResponse } from '../utils/response.js';
 import User from '../models/User.js';
+import PricingTier from '../models/pricingTier.js';
+import { errorResponse, successResponse } from '../utils/response.js';
 
 const PAYMENT_API_BASE_URL = 'https://api.greeninvoice.co.il/api/v1';
 
@@ -140,36 +141,66 @@ export const getPaymentTypes = async (req, res) => {
     }
 };
 
+// export const makePayment = async (req, res) => {
+//     try {
+//     const { pricingId } = req.body;
+
+
+//     console.log("soul land", req.user);
+//     // i want to get user with req.user._id and want to update or patch in some field give me function User this is my schema.
+    
+//     const userId = req?.user?._id;
+//     const updateData = {
+//         subscription: pricingId,
+//     }
+    
+//     if (!pricingId) throw new Error("Pricing Id is required");
+    
+//     const result = await User.findByIdAndUpdate(
+//         userId,
+//         { $set: updateData },
+//         { new: true, runValidators: true }
+//     );
+    
+//     console.log({result});
+    
+//     // const result = 
+//     return successResponse(res, 'Subscription added successfully', result.data);
+//     } catch (error) {
+//     return errorResponse(res, 'Failed to retrieve payment types', error);
+//     }
+    
+// }
+
+
+
 export const makePayment = async (req, res) => {
-    try {
+  try {
     const { pricingId } = req.body;
-
-
-    console.log("soul land", req.user);
-    // i want to get user with req.user._id and want to update or patch in some field give me function User this is my schema.
-    
     const userId = req?.user?._id;
-    const updateData = {
-        subscription: pricingId,
-    }
-    
+
     if (!pricingId) throw new Error("Pricing Id is required");
-    
-    const result = await User.findByIdAndUpdate(
-        userId,
-        { $set: updateData },
-        { new: true, runValidators: true }
+    if (!userId) throw new Error("User authentication failed");
+
+    // 1. Get credits from pricing tier
+    const tier = await PricingTier.findById(pricingId);
+    if (!tier) throw new Error("Pricing tier not found");
+
+    // 2. Update user with new subscription and add credits
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: { subscription: pricingId },
+        $inc: { totalCreditCount: tier.credits }
+      },
+      { new: true, runValidators: true }
     );
-    
-    console.log({result});
-    
-    // const result = 
-    return successResponse(res, 'Subscription added successfully', result.data);
-    } catch (error) {
-    return errorResponse(res, 'Failed to retrieve payment types', error);
-    }
-    
-}
+
+    return successResponse(res, 'Subscription updated successfully', updatedUser);
+  } catch (error) {
+    return errorResponse(res, 'Payment processing failed', error);
+  }
+};
 
 export const createPayment = async (req, res) => {
     try {

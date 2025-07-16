@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        totalCreditCount: {
+            type: Number,
+            default: 0,
+        },
         verificationToken: String,
         verificationTokenExpires: Date,
         resetPasswordToken: String,
