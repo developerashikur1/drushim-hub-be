@@ -28,9 +28,22 @@ const scheduleSchema = new mongoose.Schema(
             type: [String],
             required: false,
         },
+        // platforms: {
+        //     type: [String],
+        //     required: false,
+        // },
         platforms: {
-            type: [String],
-            required: false,
+            type: [[String]],
+            default: [],
+            validate: {
+                validator: function (value) {
+                    return Array.isArray(value) && value.every(
+                        arr => Array.isArray(arr) && arr.every(str => typeof str === 'string')
+                    );
+                },
+                
+                message: 'groups must be a 2D array of strings'
+            }
         },
         groups: {
             type: [[String]],
